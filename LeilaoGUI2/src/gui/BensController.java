@@ -53,8 +53,15 @@ public class BensController  implements Initializable {
 
 	public void salvarBens(ActionEvent event) throws IOException
 	{
-		bens.add(new Bens(descBreve.getText().toString(), descCompleta.getText().toString(), categoria.getText().toString()));
-	}
+		Bens b = new Bens(descBreve.getText().toString(), descCompleta.getText().toString(), categoria.getText().toString());
+		if((descBreve.getText().toString().isEmpty() || descCompleta.getText().toString().isEmpty() || categoria.getText().toString().isEmpty())){
+			this.erroAoCadastrar();
+		}
+		else{
+			this.bemCadastrado();
+			bens.add(new Bens(descBreve.getText().toString(), descCompleta.getText().toString(), categoria.getText().toString()));
+		}
+		}
 
 	public void bemCadastrado(){
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -65,6 +72,14 @@ public class BensController  implements Initializable {
 		descBreve.clear();
 		categoria.clear();
 		descCompleta.clear();
+	}
+
+	public void erroAoCadastrar(){
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Erro");
+		alert.setHeaderText(null);
+		alert.setContentText("Todos os campos devem estar preenchidos!");
+		alert.showAndWait();
 	}
 
 	public void descBreveNchars(){
