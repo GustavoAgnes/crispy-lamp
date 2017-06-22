@@ -1,10 +1,12 @@
 package negocio;
 
+import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Usuario {
 	String nome,cpf,cnpj,email;
+	ArrayList<Usuario> usuarios = new ArrayList<>();
 
 public Usuario (String nome,String cpf,String email){
 	this.nome = nome;
@@ -44,7 +46,6 @@ public boolean validacaoUsuario(String cpf, String email) {
 	return false;
 }
 
-
 public String getNome(){
 	return nome;
 }
@@ -59,6 +60,12 @@ public String getEmail() {
 
 public String getCpf() {
 	return cpf;
+}
+
+@Override
+public String toString() {
+	return "Usuario [nome=" + nome + ", cpf=" + cpf + ", cnpj=" + cnpj + ", email=" + email + ", usuarios=" + usuarios
+			+ "]";
 }
 
 

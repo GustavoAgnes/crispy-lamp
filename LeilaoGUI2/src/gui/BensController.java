@@ -59,7 +59,7 @@ public class BensController  implements Initializable {
 		}
 		else{
 			this.bemCadastrado();
-			bens.add(new Bens(descBreve.getText().toString(), descCompleta.getText().toString(), categoria.getText().toString()));
+			bens.add(b);
 		}
 		}
 

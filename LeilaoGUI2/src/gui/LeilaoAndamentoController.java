@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,6 +33,9 @@ public class LeilaoAndamentoController implements Initializable {
 	private ComboBox<String> horaInicio, horaTermino, minutosTermino, minutosInicio;
 
 	@FXML
+	private Label identificacao;
+
+	@FXML
 	public void botaoHome(ActionEvent event)throws IOException
 	{
 		Parent root = FXMLLoader.load(getClass().getResource("Leilao.fxml"));
@@ -43,10 +47,24 @@ public class LeilaoAndamentoController implements Initializable {
 		stage.show();
 	}
 
+	public void mudarTexto() throws IOException{
+		naturezaLeilao.getSelectionModel()
+	    .selectedItemProperty()
+	    .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) ->{
+	    	if(naturezaLeilao.getSelectionModel().getSelectedItem().toString()=="Oferta"){
+				identificacao.setText(identificacao.getText().toString().substring(0,16).concat(" comprador"));
+			}
+	    	if(naturezaLeilao.getSelectionModel().getSelectedItem().toString()=="Demanda"){
+				identificacao.setText(identificacao.getText().toString().substring(0,16).concat(" vendedor"));
+			}
+	    });
+		}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		naturezaLeilao.getItems().addAll("Oferta","Demanda");
 		formaLances.getItems().addAll("Aberto","Fechado");
+		naturezaLeilao.getSelectionModel().selectFirst();
 		horaInicio.getItems().addAll("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16"
 				,"17","18","19","20","21","22","23","24");
 		horaTermino.getItems().addAll("00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16"

@@ -21,16 +21,18 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import negocio.CadastroException;
+import negocio.Leilao;
 import negocio.Usuario;
 
 public class CadastroUsuarioController implements Initializable {
-	ArrayList<Usuario> usuarios = new ArrayList<>();
+	ArrayList<Usuario> usuarios = new ArrayList<>(); // ?? os usuarios vao para o banco e não para a lista
 
 	@FXML
 	private TextField nome,cpf,email;
 
 	@FXML
 	private Button btnImage;
+
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -55,7 +57,8 @@ public class CadastroUsuarioController implements Initializable {
 		Usuario u = new Usuario(nome.getText().toString(),cpf.getText().toString(),email.getText().toString());
 		if(u.validacaoUsuario(cpf.getText(), email.getText())){
 			if(!usuarios.contains(u)){
-			usuarios.add(u);
+				usuarios.add(u);
+
 			this.cadastradoSucessoAlerta();
 		}
 			else{
@@ -81,5 +84,9 @@ public class CadastroUsuarioController implements Initializable {
 		alert.setHeaderText(null);
 		alert.setContentText(msgErro);
 		alert.showAndWait();
+	}
+
+	public ArrayList<Usuario> getLista(){
+		return usuarios;
 	}
 }

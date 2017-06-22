@@ -32,7 +32,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <ChoiceBox fx:id="naturezaLeilao" layoutX="16.0" layoutY="56.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="naturezaLeilao" layoutX="16.0" layoutY="56.0" onMouseClicked="#mudarTexto" prefWidth="150.0" />
       <Text layoutX="127.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro de Leilão">
          <font>
             <Font size="18.0" />
@@ -44,7 +44,7 @@
       <Label layoutX="16.0" layoutY="145.0" text="Data de Inicio" />
       <Label layoutX="16.0" layoutY="192.0" text="Data de Término" />
       <DatePicker layoutX="16.0" layoutY="209.0" />
-      <Label layoutX="16.0" layoutY="242.0" text="Identificação do " />
+      <Label fx:id="identificacao" layoutX="16.0" layoutY="242.0" onMouseClicked="#mudarTexto" text="Identificação do Comprador" />
       <Label layoutX="222.0" layoutY="145.0" text="Hora de Inicio" />
       <Label layoutX="222.0" layoutY="192.0" text="Hora de Término" />
       <ComboBox fx:id="horaInicio" layoutX="222.0" layoutY="162.0" prefHeight="25.0" prefWidth="55.0" />
@@ -61,5 +61,7 @@
       </Label>
       <ComboBox fx:id="minutosTermino" layoutX="293.0" layoutY="209.0" prefHeight="25.0" prefWidth="55.0" />
       <ComboBox fx:id="minutosInicio" layoutX="293.0" layoutY="162.0" prefHeight="25.0" prefWidth="55.0" />
+      <ComboBox layoutX="16.0" layoutY="276.0" prefWidth="150.0" />
+      <Label layoutX="16.0" layoutY="259.0" text="Selecione um usuário" />
    </children>
 </AnchorPane>
