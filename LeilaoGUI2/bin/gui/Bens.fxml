@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.BensController">
+   <children>
+      <Text layoutX="126.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cadastro de Bens" wrappingWidth="147.021484375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="14.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição Breve" />
+      <TextField id="descBreve" fx:id="descBreve" layoutX="14.0" layoutY="49.0" onKeyTyped="#descBreveNchars" prefHeight="25.0" prefWidth="276.0" />
+      <Text layoutX="12.0" layoutY="87.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição Completa" />
+      <TextArea id="descCompleta" fx:id="descCompleta" layoutX="13.0" layoutY="91.0" prefHeight="245.0" prefWidth="374.0" wrapText="true" />
+      <Text layoutX="14.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Categoria" />
+      <TextField id="categoria" fx:id="categoria" layoutX="13.0" layoutY="355.0" />
+      <Button fx:id="botaoHome" layoutX="-2.0" layoutY="1.0" mnemonicParsing="false" onAction="#botaoHome" prefHeight="25.0" prefWidth="31.0">
+         <graphic>
+            <ImageView fitHeight="18.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/home-icon.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="botaoSalvar" layoutX="30.0" layoutY="1.0" mnemonicParsing="false" onAction="#salvarBens" prefHeight="17.0" prefWidth="34.0">
+         <graphic>
+            <ImageView fitHeight="17.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/floppy-128.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>
