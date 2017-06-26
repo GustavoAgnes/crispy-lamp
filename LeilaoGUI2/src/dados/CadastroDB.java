@@ -1,9 +1,11 @@
 package dados;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import negocio.Leilao;
 import negocio.Usuario;
 
 public class CadastroDB { //implements facade
@@ -14,6 +16,8 @@ public class CadastroDB { //implements facade
 			Statement statement = c.createStatement();
 			statement.execute("CREATE TABLE IF NOT EXISTS"
 					+ " usuarios(nome TEXT, cpf TEXT, email TEXT)"); // cnpj
+			statement.execute("CREATE TABLE IF NOT EXISTS"
+					+ " leilao(natureza INTEGER, cpf TEXT, tipoLances INTEGER, dataInicio DATE, dataFim DATE, horaInicio TEXT, horaFim TEXT)");
 			c.close();
         } catch (SQLException ex) {
             throw new CadastroException(ex.getMessage());
@@ -24,10 +28,10 @@ public class CadastroDB { //implements facade
         return DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Gustavo_Zudrewer\\workspace\\TesteSQLite\\databases\\tf.db");
     }
 
-    public boolean adicionar(Usuario u) throws CadastroException {
+    public boolean adicionarUsuario(Usuario u) throws CadastroException {
         try(Connection c = getConnection();){
         	createDB();
-        		if(!checarSeExiste(u)){
+        		if(!checarSeExisteUsuario(u)){
         		PreparedStatement stmt = c.prepareStatement(
                         "INSERT INTO usuarios (nome, cpf, email) VALUES (?,?,?)"
                         );
@@ -46,7 +50,28 @@ public class CadastroDB { //implements facade
         }
     }
 
-    public List<Usuario> getTodos() throws CadastroException {
+    public boolean cadastrarLeilao(Leilao l) throws CadastroException {
+        try(Connection c = getConnection();){
+        	createDB();
+        		PreparedStatement stmt = c.prepareStatement(
+                        "INSERT INTO leiloes (natureza, cpf, tipoLances, dataInicio, dataFim, horaInicio, horaFim) VALUES (?,?,?,?,?,?,?)"
+                        );
+                stmt.setInt(1, l.getNatureza());
+                stmt.setString(2, l.getCpf().toString());
+                stmt.setInt(3, l.getTipoLances());
+                stmt.setDate(4, l.getDataInicio());
+                stmt.setDate(5, l.getDataFim());
+                stmt.setString(6, l.getHoraInicio().toString());
+                stmt.setString(7, l.getHoraFim().toString());
+                stmt.executeUpdate();
+                stmt.close();
+                return true;
+        } catch (SQLException ex) {
+            throw new CadastroException("Falha ao adicionar.", ex);
+        }
+    }
+
+    public List<Usuario> getTodosUsuarios() throws CadastroException {
         try(Connection c = getConnection();) {
             Statement stmt = c.createStatement();
             ResultSet resultado = stmt.executeQuery("SELECT * FROM USUARIOS");
@@ -74,7 +99,7 @@ public class CadastroDB { //implements facade
     	}
 
 
-    public boolean checarSeExiste(Usuario u) throws CadastroException {
+    public boolean checarSeExisteUsuario(Usuario u) throws CadastroException {
 		try(Connection c = getConnection();){ // fecha o recurso automaticamente
 			String queryCheck = "SELECT * from usuarios WHERE cpf = "+u.getCpf().toString();
 			Statement stmt = c.createStatement();

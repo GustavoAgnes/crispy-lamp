@@ -3,9 +3,10 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
-
 import dados.CadastroDB;
+import dados.CadastroException;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,9 +20,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import negocio.Leilao;
 import negocio.Usuario;
 
 public class LeilaoAndamentoController implements Initializable {
@@ -40,6 +43,9 @@ public class LeilaoAndamentoController implements Initializable {
 
 	@FXML
 	private ComboBox<String> listaUsers;
+
+	@FXML
+	private DatePicker dataInicio, dataFim;
 
 	ArrayList<Usuario> usuarios = new ArrayList<>();
 
@@ -70,6 +76,15 @@ public class LeilaoAndamentoController implements Initializable {
 	    });
 		}
 
+	public void botaoSubmit(ActionEvent event) throws IOException {
+	//	Leilao l = new Leilao(Integer.parseInt(naturezaLeilao.getSelectionModel().getSelectedItem().toString()),
+		//		pegarCpfs(),
+	//			Integer.parseInt(formaLances.getSelectionModel().getSelectedItem().toString()),
+	//			dataInicio.get
+
+		//		databaseTF.cadastrarLeilao(l);
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		naturezaLeilao.getItems().addAll("Oferta","Demanda");
@@ -95,9 +110,13 @@ public class LeilaoAndamentoController implements Initializable {
                         "LeilaoAndamento.css").toExternalForm());
 
 		try {
-			usuarios = (ArrayList<Usuario>) databaseTF.getTodos();
+			usuarios = (ArrayList<Usuario>) databaseTF.getTodosUsuarios();
 			for (Usuario u : usuarios) {
+				//String completa = "Nome: "+u.getNome().toString() +", CPF: "+u.getCpf().toString();
 				listaUsers.getItems().add("Nome: "+u.getNome().toString() +", CPF: "+u.getCpf().toString());
+				//String[] apenasCpf = completa.split(",");
+				//String apenasCpfSub = apenasCpf[1].substring(6,17);
+				//System.out.println(apenasCpf[1].substring(6,17));
 			}
 		} catch (dados.CadastroException e) {
 			// TODO Auto-generated catch block
@@ -105,4 +124,12 @@ public class LeilaoAndamentoController implements Initializable {
 		}
 	}
 
+	public String pegarCpfs() throws CadastroException{
+			String completa = listaUsers.getSelectionModel().getSelectedItem().toString();
+			//listaUsers.getItems().add(completa);
+			String[] apenasCpf = completa.split(",");
+			String apenasCpfSub = apenasCpf[1].substring(6,17);
+			return apenasCpfSub;
+	}
 }
+

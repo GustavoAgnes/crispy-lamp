@@ -60,8 +60,8 @@ public class CadastroUsuarioController implements Initializable {
 	public void clickSubmit() throws dados.CadastroException{
 		Usuario u = new Usuario(nome.getText().toString(),cpf.getText().toString(),email.getText().toString());
 		if(u.validacaoUsuario(cpf.getText(), email.getText())){
-			if(!databaseTF.checarSeExiste(u)){
-				databaseTF.adicionar(u);
+			if(!databaseTF.checarSeExisteUsuario(u)){
+				databaseTF.adicionarUsuario(u);
 
 			this.cadastradoSucessoAlerta();
 		}

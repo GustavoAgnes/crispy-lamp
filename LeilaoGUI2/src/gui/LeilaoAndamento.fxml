@@ -40,10 +40,10 @@
       </Text>
       <Label layoutX="16.0" layoutY="89.0" text="Forma de Lances" />
       <ChoiceBox fx:id="formaLances" layoutX="16.0" layoutY="106.0" prefWidth="150.0" />
-      <DatePicker layoutX="16.0" layoutY="162.0" />
+      <DatePicker fx:id="dataInicio" layoutX="16.0" layoutY="162.0" />
       <Label layoutX="16.0" layoutY="145.0" text="Data de Inicio" />
       <Label layoutX="16.0" layoutY="192.0" text="Data de Término" />
-      <DatePicker layoutX="16.0" layoutY="209.0" />
+      <DatePicker fx:id="dataFim" layoutX="16.0" layoutY="209.0" />
       <Label fx:id="identificacao" layoutX="16.0" layoutY="242.0" onMouseClicked="#mudarTexto" text="Identificação do Comprador" />
       <Label layoutX="222.0" layoutY="145.0" text="Hora de Inicio" />
       <Label layoutX="222.0" layoutY="192.0" text="Hora de Término" />

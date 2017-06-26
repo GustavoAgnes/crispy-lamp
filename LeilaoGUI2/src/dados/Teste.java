@@ -8,7 +8,7 @@ public class Teste {
 		CadastroDB  cdb = new CadastroDB();
 		//cdb.queryqualquer("DROP TABLE usuarios");
 		//cdb.adicionar(new Usuario("teste","858270610354","teste"));
-		System.out.println(cdb.getTodos());
+		System.out.println(cdb.getTodosUsuarios());
 	}
 
 }
