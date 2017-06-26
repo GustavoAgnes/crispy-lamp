@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Vector;
 
 import dados.CadastroDB;
 import javafx.application.Platform;
@@ -19,6 +20,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import negocio.CadastroException;
@@ -40,7 +42,6 @@ public class CadastroUsuarioController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		// TODO Auto-generated method stub
-
 	}
 
 	@FXML

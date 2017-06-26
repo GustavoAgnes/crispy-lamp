@@ -73,6 +73,7 @@ public class CadastroDB { //implements facade
 		}
     	}
 
+
     public boolean checarSeExiste(Usuario u) throws CadastroException {
 		try(Connection c = getConnection();){ // fecha o recurso automaticamente
 			String queryCheck = "SELECT * from usuarios WHERE cpf = "+u.getCpf().toString();

@@ -2,8 +2,10 @@ package gui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import dados.CadastroDB;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +22,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import negocio.Usuario;
 
 public class LeilaoAndamentoController implements Initializable {
 
@@ -34,6 +37,13 @@ public class LeilaoAndamentoController implements Initializable {
 
 	@FXML
 	private Label identificacao;
+
+	@FXML
+	private ComboBox<String> listaUsers;
+
+	ArrayList<Usuario> usuarios = new ArrayList<>();
+
+	CadastroDB databaseTF = new CadastroDB();
 
 	@FXML
 	public void botaoHome(ActionEvent event)throws IOException
@@ -83,6 +93,16 @@ public class LeilaoAndamentoController implements Initializable {
 		minutosInicio.getStylesheets().add(
                 getClass().getResource(
                         "LeilaoAndamento.css").toExternalForm());
+
+		try {
+			usuarios = (ArrayList<Usuario>) databaseTF.getTodos();
+			for (Usuario u : usuarios) {
+				listaUsers.getItems().add("Nome: "+u.getNome().toString() +", CPF: "+u.getCpf().toString());
+			}
+		} catch (dados.CadastroException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
