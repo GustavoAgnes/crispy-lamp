@@ -25,26 +25,29 @@ public class CadastroDB { //implements facade
     }
 
     public boolean adicionar(Usuario u) throws CadastroException {
-        try {
+        try(Connection c = getConnection();){
         	createDB();
-        	Connection c = getConnection();
-            PreparedStatement stmt = c.prepareStatement(
-                    "INSERT INTO usuarios (nome, cpf, email) VALUES (?,?,?)"
-                    );
-            stmt.setString(1, u.getNome());
-            stmt.setString(2, u.getCpf());
-            stmt.setString(3, u.getEmail());
-            int ret = stmt.executeUpdate();
-            c.close();
-            return (ret>0);
+        		if(!checarSeExiste(u)){
+        		PreparedStatement stmt = c.prepareStatement(
+                        "INSERT INTO usuarios (nome, cpf, email) VALUES (?,?,?)"
+                        );
+                stmt.setString(1, u.getNome());
+                stmt.setString(2, u.getCpf());
+                stmt.setString(3, u.getEmail());
+                stmt.executeUpdate();
+                stmt.close();
+                return true;
+        		}
+        		else{
+        			return false;
+        		}
         } catch (SQLException ex) {
             throw new CadastroException("Falha ao adicionar.", ex);
         }
     }
 
     public List<Usuario> getTodos() throws CadastroException {
-        try {
-        	Connection c = getConnection();
+        try(Connection c = getConnection();) {
             Statement stmt = c.createStatement();
             ResultSet resultado = stmt.executeQuery("SELECT * FROM USUARIOS");
             List<Usuario> lista = new ArrayList<Usuario>();
@@ -61,14 +64,30 @@ public class CadastroDB { //implements facade
         }    }
 
     public void queryqualquer(String query) throws CadastroException {
-    	try {
-			Connection c = getConnection();
+    	try(Connection c = getConnection();) {
 			Statement stmt = c.createStatement();
 			stmt.executeQuery(query);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	}
 
+    public boolean checarSeExiste(Usuario u) throws CadastroException {
+		try(Connection c = getConnection();){ // fecha o recurso automaticamente
+			String queryCheck = "SELECT * from usuarios WHERE cpf = "+u.getCpf().toString();
+			Statement stmt = c.createStatement();
+			stmt.executeQuery(queryCheck);
+        	final ResultSet resultSet = stmt.executeQuery(queryCheck);
+
+        	if(resultSet.next()==false){
+        		return false;
+        	}
+        	else{
+        		return true;
+        	}
+		} catch(SQLException e){
+			throw new CadastroException("Falha.", e);
+		}
     }
 }

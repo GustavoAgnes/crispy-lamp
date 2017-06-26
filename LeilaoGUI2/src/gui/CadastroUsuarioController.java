@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import dados.CadastroDB;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -33,6 +34,8 @@ public class CadastroUsuarioController implements Initializable {
 	@FXML
 	private Button btnImage;
 
+	CadastroDB databaseTF = new CadastroDB();
+
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -53,11 +56,11 @@ public class CadastroUsuarioController implements Initializable {
 	}
 
 	@FXML
-	public void clickSubmit(){
+	public void clickSubmit() throws dados.CadastroException{
 		Usuario u = new Usuario(nome.getText().toString(),cpf.getText().toString(),email.getText().toString());
 		if(u.validacaoUsuario(cpf.getText(), email.getText())){
-			if(!usuarios.contains(u)){
-				usuarios.add(u);
+			if(!databaseTF.checarSeExiste(u)){
+				databaseTF.adicionar(u);
 
 			this.cadastradoSucessoAlerta();
 		}
