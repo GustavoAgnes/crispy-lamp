@@ -1,7 +1,9 @@
 package dados;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class CadastroDB { //implements facade
 			statement.execute("CREATE TABLE IF NOT EXISTS"
 					+ " usuarios(nome TEXT, cpf TEXT, email TEXT)"); // cnpj
 			statement.execute("CREATE TABLE IF NOT EXISTS"
-					+ " leilao(natureza INTEGER, cpf TEXT, tipoLances INTEGER, dataInicio DATE, dataFim DATE, horaInicio TEXT, horaFim TEXT)");
+					+ " leiloes(natureza TEXT, cpf TEXT, tipoLances TEXT, dataInicio DATE, dataFim DATE, horaInicio INTEGER, horaFim INTEGER, minutoInicio INTEGER, minutoFim INTEGER)");
 			c.close();
         } catch (SQLException ex) {
             throw new CadastroException(ex.getMessage());
@@ -54,15 +56,17 @@ public class CadastroDB { //implements facade
         try(Connection c = getConnection();){
         	createDB();
         		PreparedStatement stmt = c.prepareStatement(
-                        "INSERT INTO leiloes (natureza, cpf, tipoLances, dataInicio, dataFim, horaInicio, horaFim) VALUES (?,?,?,?,?,?,?)"
+                        "INSERT INTO leiloes (natureza, cpf, tipoLances, dataInicio, dataFim, horaInicio, horaFim, minutoInicio, minutoFim) VALUES (?,?,?,?,?,?,?,?,?)"
                         );
-                stmt.setInt(1, l.getNatureza());
+                stmt.setString(1, l.getNatureza());
                 stmt.setString(2, l.getCpf().toString());
-                stmt.setInt(3, l.getTipoLances());
+                stmt.setString(3, l.getTipoLances());
                 stmt.setDate(4, l.getDataInicio());
                 stmt.setDate(5, l.getDataFim());
-                stmt.setString(6, l.getHoraInicio().toString());
-                stmt.setString(7, l.getHoraFim().toString());
+                stmt.setInt(6, l.getHoraInicio());
+                stmt.setInt(7, l.getHoraFim());
+                stmt.setInt(8, l.getMinutoInicio());
+                stmt.setInt(9, l.getMinutoFim());
                 stmt.executeUpdate();
                 stmt.close();
                 return true;
@@ -82,6 +86,35 @@ public class CadastroDB { //implements facade
                 String email = resultado.getString("email");
                 Usuario u = new Usuario(nome, cpf, email);
                 lista.add(u);
+            }
+            return lista;
+        } catch (SQLException ex) {
+            throw new CadastroException("Falha ao buscar.", ex);
+        }    }
+
+    public List<Leilao> getTodosLeiloes() throws CadastroException {
+        try(Connection c = getConnection();) {
+            Statement stmt = c.createStatement();
+            ResultSet resultado = stmt.executeQuery("SELECT * FROM LEILOES");
+            List<Leilao> lista = new ArrayList<Leilao>();
+            while(resultado.next()) {
+                String natureza = resultado.getString("natureza");
+                String cpf = resultado.getString("cpf");
+                String tipoLances = resultado.getString("tipoLances");
+               // LocalDate dataInicio = resultado.getDate("dataInicio").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+             //  LocalDate dataFim = resultado.getDate("dataFim").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+               Date dataInicio = resultado.getDate("dataInicio");
+               Date dataFim = resultado.getDate("dataFim");
+                //String dataInicio = resultado.getString("dataInicio");
+                //String dataFim = resultado.getString("dataFim");
+                int horaInicio = resultado.getInt("horaInicio");
+                int horaFim = resultado.getInt("horaFim");
+                int minutosInicio = resultado.getInt("minutoInicio");
+                int minutosFim = resultado.getInt("minutoFim");
+                Leilao l = new Leilao(natureza,cpf,tipoLances,dataInicio,dataFim,horaInicio,horaFim,minutosInicio,minutosFim);
+                lista.add(l);
+//String natureza, String cpf, String tipoLances, LocalDate dataInicio, LocalDate dataFim, int horaInicio, int horaFim, int minutoInicio, int minutoFim)
+            //minutoInicio, minutoFim
             }
             return lista;
         } catch (SQLException ex) {

@@ -8,17 +8,17 @@ import java.util.ArrayList;
 import gui.CadastroUsuarioController;
 
 public class Leilao {
-	int natureza, tipoLances;
-	LocalDateTime dataInicio, dataFim;
+	String natureza, tipoLances;
+	LocalDate dataInicio, dataFim;
+	Date dataInicioS, dataFimS;
 	String cpf; // ?
-	String horaInicio, horaFim;
+	int horaInicio, horaFim, minutoInicio, minutoFim;
 
-	CadastroUsuarioController cuc = new CadastroUsuarioController();
 
 	ArrayList<Usuario> compradores = new ArrayList<>();
 	ArrayList<Usuario> vendedores = new ArrayList<>();
 
-	public Leilao(int natureza, String cpf, int tipoLances, LocalDateTime dataInicio, LocalDateTime dataFim, String horaInicio, String horaFim){
+	public Leilao(String natureza, String cpf, String tipoLances, LocalDate dataInicio, LocalDate dataFim, int horaInicio, int horaFim, int minutoInicio, int minutoFim){
 		this.natureza = natureza;
 		this.cpf = cpf;
 		this.tipoLances = tipoLances;
@@ -26,13 +26,27 @@ public class Leilao {
 		this.dataFim = dataFim;
 		this.horaInicio = horaInicio;
 		this.horaFim = horaFim;
+		this.minutoInicio = minutoInicio;
+		this.minutoFim = minutoFim;
 	}
 
-	public int getNatureza() {
+	public Leilao(String natureza, String cpf, String tipoLances, Date dataInicio, Date dataFim, int horaInicio, int horaFim, int minutoInicio, int minutoFim){
+		this.natureza = natureza;
+		this.cpf = cpf;
+		this.tipoLances = tipoLances;
+		this.dataInicioS = dataInicio;
+		this.dataFimS = dataFim;
+		this.horaInicio = horaInicio;
+		this.horaFim = horaFim;
+		this.minutoInicio = minutoInicio;
+		this.minutoFim = minutoFim;
+	}
+
+	public String getNatureza() {
 		return natureza;
 	}
 
-	public int getTipoLances() {
+	public String getTipoLances() {
 		return tipoLances;
 	}
 
@@ -52,16 +66,20 @@ public class Leilao {
 		return cpf;
 	}
 
-	public String getHoraInicio() {
+	public int getHoraInicio() {
 		return horaInicio;
 	}
 
-	public String getHoraFim() {
+	public int getHoraFim() {
 		return horaFim;
 	}
 
-	public CadastroUsuarioController getCuc() {
-		return cuc;
+	public int getMinutoInicio(){
+		return minutoInicio;
+	}
+
+	public int getMinutoFim(){
+		return minutoFim;
 	}
 
 	public ArrayList<Usuario> getCompradores() {
@@ -78,5 +96,13 @@ public class Leilao {
 
 	public void addVendedor(Usuario u){
 		vendedores.add(u);
+	}
+
+	@Override
+	public String toString() {
+		return "Leilao [natureza=" + natureza + ", tipoLances=" + tipoLances + ", dataInicio=" + dataInicio
+				+ ", dataFim=" + dataFim + ", dataInicioS=" + dataInicioS + ", dataFimS=" + dataFimS + ", cpf=" + cpf
+				+ ", horaInicio=" + horaInicio + ", horaFim=" + horaFim + ", minutoInicio=" + minutoInicio
+				+ ", minutoFim=" + minutoFim + " +]";
 	}
 }

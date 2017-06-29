@@ -63,7 +63,7 @@ public class LeilaoAndamentoController implements Initializable {
 		stage.show();
 	}
 
-	public void mudarTexto() throws IOException{
+	public void mudarTexto() throws IOException, CadastroException{
 		naturezaLeilao.getSelectionModel()
 	    .selectedItemProperty()
 	    .addListener( (ObservableValue<? extends String> observable, String oldValue, String newValue) ->{
@@ -74,15 +74,31 @@ public class LeilaoAndamentoController implements Initializable {
 				identificacao.setText(identificacao.getText().toString().substring(0,16).concat(" vendedor"));
 			}
 	    });
+		//pegarCpfs();
+		//System.out.println(dataInicio.getValue());
 		}
+	@FXML
+	public void botaoSubmit(ActionEvent event) throws IOException, NumberFormatException, CadastroException {
+		Leilao l = new Leilao(naturezaLeilao.getSelectionModel().getSelectedItem().toString(),
+				pegarCpfs(),
+				formaLances.getSelectionModel().getSelectedItem().toString(),
+				dataInicio.getValue(),
+				dataFim.getValue(),
+				Integer.parseInt(horaInicio.getSelectionModel().getSelectedItem().toString().toString()),
+				Integer.parseInt(horaTermino.getSelectionModel().getSelectedItem().toString().toString()),
+				Integer.parseInt(minutosInicio.getSelectionModel().getSelectedItem().toString()),
+				Integer.parseInt(minutosTermino.getSelectionModel().getSelectedItem().toString()));
+				databaseTF.cadastrarLeilao(l);
+				System.out.println(databaseTF.getTodosLeiloes());
 
-	public void botaoSubmit(ActionEvent event) throws IOException {
-	//	Leilao l = new Leilao(Integer.parseInt(naturezaLeilao.getSelectionModel().getSelectedItem().toString()),
-		//		pegarCpfs(),
-	//			Integer.parseInt(formaLances.getSelectionModel().getSelectedItem().toString()),
-	//			dataInicio.get
-
-		//		databaseTF.cadastrarLeilao(l);
+		//System.out.println(naturezaLeilao.getSelectionModel().getSelectedItem().toString());
+	//	System.out.println(pegarCpfs());
+	//	System.out.println(formaLances.getSelectionModel().getSelectedItem().toString());
+	//	System.out.println(dataInicio.getValue());
+	//	System.out.println(dataFim.getValue());
+	//	System.out.println(horaInicio.getSelectionModel().getSelectedItem().toString());
+	//	System.out.println(horaTermino.getSelectionModel().getSelectedItem().toString());
+	//	System.out.println();
 	}
 
 	@Override

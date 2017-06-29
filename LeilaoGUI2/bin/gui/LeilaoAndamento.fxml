@@ -23,7 +23,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="32.0" layoutY="2.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="29.0">
+      <Button fx:id="botaoSubmit" layoutX="32.0" layoutY="2.0" mnemonicParsing="false" onAction="#botaoSubmit" prefHeight="17.0" prefWidth="29.0">
          <graphic>
             <ImageView fitHeight="22.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                <image>
