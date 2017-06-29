@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LeilaoController">
+<AnchorPane maxHeight="400.0" maxWidth="400.0" minHeight="400.0" minWidth="400.0" prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SistemaDeLeilaoController">
    <children>
       <VBox alignment="TOP_CENTER" layoutX="5.0" prefHeight="400.0" prefWidth="400.0">
          <children>
@@ -19,9 +19,18 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+            <HBox alignment="TOP_CENTER" prefHeight="142.0" prefWidth="400.0" spacing="20.0">
                <children>
-                  <Button mnemonicParsing="false" onAction="#buttonClicked" prefHeight="44.0" prefWidth="110.0" text="Cadastrar Usuario" />
+                  <VBox prefHeight="137.0" prefWidth="110.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#buttonClicked" prefHeight="44.0" prefWidth="110.0" text="Cadastrar Usuario" />
+                        <Button fx:id="LeiloesEmAndamento" mnemonicParsing="false" onAction="#clickLeiloesAndamento" prefHeight="44.0" prefWidth="110.0" text="Ver Leilões em Andamento" wrapText="true">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
+                  </VBox>
                   <Button mnemonicParsing="false" onAction="#comecarLeilao" prefHeight="44.0" prefWidth="110.0" text="Cadastrar Leilão" />
                   <Button id="btnLote" fx:id="btnLote" mnemonicParsing="false" onAction="#clickCadastroBens" prefHeight="44.0" prefWidth="110.0" text="Cadastrar Bens" />
                </children>
@@ -33,6 +42,9 @@
                <image>
                   <Image url="@auction-hammer-icon.png" />
                </image>
+               <VBox.margin>
+                  <Insets top="50.0" />
+               </VBox.margin>
             </ImageView>
          </children>
       </VBox></children>

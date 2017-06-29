@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LeiloesCorrentesController">
+   <children>
+      <HBox alignment="TOP_CENTER" layoutY="14.0" prefHeight="36.0" prefWidth="400.0">
+         <children>
+            <Label text="Leilões em Andamento" textAlignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+      <HBox layoutY="50.0" prefHeight="350.0" prefWidth="400.0">
+         <children>
+            <VBox prefHeight="350.0" prefWidth="400.0">
+               <children>
+                  <Label text="Natureza do Leilão">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ComboBox fx:id="naturezaLeilao" prefHeight="25.0" prefWidth="100.0">
+                     <VBox.margin>
+                        <Insets left="20.0" />
+                     </VBox.margin>
+                  </ComboBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

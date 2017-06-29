@@ -18,7 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class LeilaoController implements Initializable {
+public class SistemaDeLeilaoController implements Initializable {
 	@FXML
 	private TextField nome,cpf,email;
 	@FXML
@@ -50,7 +50,17 @@ public class LeilaoController implements Initializable {
 
 	public void comecarLeilao(ActionEvent event) throws IOException
 	{
-		Parent root = FXMLLoader.load(getClass().getResource("LeilaoAndamento.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("CadastroDeLeilao.fxml"));
+		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
+		Scene scene = new Scene(root, 400, 400);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+		stage.setScene(scene);
+		stage.setResizable(false);
+		stage.show();
+	}
+
+	public void clickLeiloesAndamento(ActionEvent event) throws IOException{
+		Parent root = FXMLLoader.load(getClass().getResource("LeiloesCorrentes.fxml"));
 		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root, 400, 400);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

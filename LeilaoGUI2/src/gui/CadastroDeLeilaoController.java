@@ -27,7 +27,7 @@ import javafx.stage.Stage;
 import negocio.Leilao;
 import negocio.Usuario;
 
-public class LeilaoAndamentoController implements Initializable {
+public class CadastroDeLeilaoController implements Initializable {
 
 	@FXML
 	private Button btnHome;
@@ -54,7 +54,7 @@ public class LeilaoAndamentoController implements Initializable {
 	@FXML
 	public void botaoHome(ActionEvent event)throws IOException
 	{
-		Parent root = FXMLLoader.load(getClass().getResource("Leilao.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("SistemaDeLeilao.fxml"));
 		Stage stage= (Stage) ((Node) event.getSource()).getScene().getWindow();
 		Scene scene = new Scene(root, 400, 400);
 		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());

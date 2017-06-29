@@ -13,7 +13,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("Leilao.fxml"));
+			AnchorPane root = (AnchorPane)FXMLLoader.load(getClass().getResource("SistemaDeLeilao.fxml"));
 			Scene scene = new Scene(root,400,400);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 
