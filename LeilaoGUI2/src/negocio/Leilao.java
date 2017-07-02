@@ -100,9 +100,9 @@ public class Leilao {
 
 	@Override
 	public String toString() {
-		return "Leilao [natureza=" + natureza + ", tipoLances=" + tipoLances + ", dataInicio=" + dataInicio
-				+ ", dataFim=" + dataFim + ", dataInicioS=" + dataInicioS + ", dataFimS=" + dataFimS + ", cpf=" + cpf
-				+ ", horaInicio=" + horaInicio + ", horaFim=" + horaFim + ", minutoInicio=" + minutoInicio
-				+ ", minutoFim=" + minutoFim + " +]";
+		return "Natureza do leilão: " + natureza + ", tipo dos Lances: " + tipoLances + ",\n"
+				+ " dia de Inicio: " + dataInicioS + ", dia do término: " + dataFimS + ",\n CPF do usuario associado ao leilão: " + cpf
+				+ ", \nHora de Inicio do leilão: " + horaInicio+":"+minutoInicio + ", hora do término do leilão: " + horaFim + ":" + minutoFim
+				+ ""+"";
 	}
 }

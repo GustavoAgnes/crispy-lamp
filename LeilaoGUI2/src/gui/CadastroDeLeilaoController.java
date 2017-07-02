@@ -76,9 +76,8 @@ public class CadastroDeLeilaoController implements Initializable {
 				identificacao.setText(identificacao.getText().toString().substring(0,16).concat(" vendedor"));
 			}
 	    });
-		//pegarCpfs();
-		//System.out.println(dataInicio.getValue());
 		}
+
 	@FXML
 	public void botaoSubmit(ActionEvent event) throws IOException, NumberFormatException, CadastroException {
 		if(naturezaLeilao.getSelectionModel().getSelectedItem() == null ||
@@ -144,11 +143,7 @@ public class CadastroDeLeilaoController implements Initializable {
 		try {
 			usuarios = (ArrayList<Usuario>) databaseTF.getTodosUsuarios();
 			for (Usuario u : usuarios) {
-				//String completa = "Nome: "+u.getNome().toString() +", CPF: "+u.getCpf().toString();
 				listaUsers.getItems().add("Nome: "+u.getNome().toString() +", CPF: "+u.getCpf().toString());
-				//String[] apenasCpf = completa.split(",");
-				//String apenasCpfSub = apenasCpf[1].substring(6,17);
-				//System.out.println(apenasCpf[1].substring(6,17));
 			}
 		} catch (dados.CadastroException e) {
 			// TODO Auto-generated catch block
@@ -158,7 +153,6 @@ public class CadastroDeLeilaoController implements Initializable {
 
 	public String pegarCpfs() throws CadastroException{
 			String completa = listaUsers.getSelectionModel().getSelectedItem().toString();
-			//listaUsers.getItems().add(completa);
 			String[] apenasCpf = completa.split(",");
 			String apenasCpfSub = apenasCpf[1].substring(6,17);
 			return apenasCpfSub;

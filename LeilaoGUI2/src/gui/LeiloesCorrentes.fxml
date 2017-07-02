@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -30,6 +31,10 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="32.0" layoutY="50.0" text="Natureza do Leilão" />
+      <Label fx:id="naturezaLeilaoLabel" layoutX="32.0" layoutY="50.0" text="Natureza do Leilão" />
+      <Label fx:id="donoLeilaoLabel" layoutX="32.0" layoutY="99.0" text="Dono do Leilão" />
+      <ComboBox fx:id="donoLeilao" layoutX="32.0" layoutY="116.0" prefHeight="25.0" prefWidth="183.0" />
+      <Button fx:id="btnPesquisar" layoutX="32.0" layoutY="154.0" mnemonicParsing="false" onAction="#botaoPesquisar" text="Pesquisar" />
+      <ListView fx:id="listaLeiloes" layoutY="41.0" prefHeight="354.0" prefWidth="400.0" />
    </children>
 </AnchorPane>

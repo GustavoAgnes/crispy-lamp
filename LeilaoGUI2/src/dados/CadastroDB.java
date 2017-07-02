@@ -144,20 +144,39 @@ public class CadastroDB { //implements facade
                 String natureza = resultado.getString("natureza");
                 String cpf = resultado.getString("cpf");
                 String tipoLances = resultado.getString("tipoLances");
-               // LocalDate dataInicio = resultado.getDate("dataInicio").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-             //  LocalDate dataFim = resultado.getDate("dataFim").toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-               Date dataInicio = resultado.getDate("dataInicio");
-               Date dataFim = resultado.getDate("dataFim");
-                //String dataInicio = resultado.getString("dataInicio");
-                //String dataFim = resultado.getString("dataFim");
+                Date dataInicio = resultado.getDate("dataInicio");
+                Date dataFim = resultado.getDate("dataFim");
                 int horaInicio = resultado.getInt("horaInicio");
                 int horaFim = resultado.getInt("horaFim");
                 int minutosInicio = resultado.getInt("minutoInicio");
                 int minutosFim = resultado.getInt("minutoFim");
                 Leilao l = new Leilao(natureza,cpf,tipoLances,dataInicio,dataFim,horaInicio,horaFim,minutosInicio,minutosFim);
                 lista.add(l);
-//String natureza, String cpf, String tipoLances, LocalDate dataInicio, LocalDate dataFim, int horaInicio, int horaFim, int minutoInicio, int minutoFim)
-            //minutoInicio, minutoFim
+            }
+            return lista;
+        } catch (SQLException ex) {
+            throw new CadastroException("Falha ao buscar.", ex);
+        }    }
+
+
+    public List<Leilao> getLeilaoPeloUsuario(String cpfUser) throws CadastroException {
+        try(Connection c = getConnection();) {
+            Statement stmt = c.createStatement();
+            ResultSet resultado = stmt.executeQuery("SELECT * FROM LEILOES WHERE CPF='"+cpfUser+"'" );
+            List<Leilao> lista = new ArrayList<Leilao>();
+            while(resultado.next()) {
+                String natureza = resultado.getString("natureza");
+                String cpf = resultado.getString("cpf");
+                String tipoLances = resultado.getString("tipoLances");
+                Date dataInicio = resultado.getDate("dataInicio");
+                Date dataFim = resultado.getDate("dataFim");
+                int horaInicio = resultado.getInt("horaInicio");
+                int horaFim = resultado.getInt("horaFim");
+                int minutosInicio = resultado.getInt("minutoInicio");
+                int minutosFim = resultado.getInt("minutoFim");
+                Leilao l = new Leilao(natureza,cpf,tipoLances,dataInicio,dataFim,horaInicio,horaFim,minutosInicio,minutosFim);
+                lista.add(l);
+
             }
             return lista;
         } catch (SQLException ex) {
