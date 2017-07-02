@@ -12,9 +12,9 @@ import negocio.Usuario;
 
 public class CadastroDB { //implements facade
 
-    private static void createDB() throws CadastroException {
+    public static void createDB() throws CadastroException { // private
         try {
-        	Connection c = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Gustavo_Zudrewer\\workspace\\TesteSQLite\\databases\\tf.db"); //precisa ser um caminho já existente, alterar.
+        	Connection c = DriverManager.getConnection("jdbc:sqlite:F:\\Users\\Gustavo Agnes\\workspace\\databasestf.db"); //precisa ser um caminho já existente, alterar.
 			Statement statement = c.createStatement();
 			statement.execute("CREATE TABLE IF NOT EXISTS"
 					+ " usuarios(nome TEXT, cpf TEXT, email TEXT)"); // cnpj
@@ -27,26 +27,47 @@ public class CadastroDB { //implements facade
     }
 
     private static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Gustavo_Zudrewer\\workspace\\TesteSQLite\\databases\\tf.db");
+        return DriverManager.getConnection("jdbc:sqlite:F:\\Users\\Gustavo Agnes\\workspace\\databasestf.db");
     }
 
     public boolean adicionarUsuario(Usuario u) throws CadastroException {
         try(Connection c = getConnection();){
-        	createDB();
+        	DatabaseMetaData dbm = c.getMetaData();
+        	ResultSet tables = dbm.getTables(null, null, "USUARIOS", null);
+        	if (tables.next()) { // tabela ja existe
         		if(!checarSeExisteUsuario(u)){
-        		PreparedStatement stmt = c.prepareStatement(
-                        "INSERT INTO usuarios (nome, cpf, email) VALUES (?,?,?)"
-                        );
-                stmt.setString(1, u.getNome());
-                stmt.setString(2, u.getCpf());
-                stmt.setString(3, u.getEmail());
-                stmt.executeUpdate();
-                stmt.close();
-                return true;
-        		}
-        		else{
-        			return false;
-        		}
+            		PreparedStatement stmt = c.prepareStatement(
+                            "INSERT INTO usuarios (nome, cpf, email) VALUES (?,?,?)"
+                            );
+                    stmt.setString(1, u.getNome());
+                    stmt.setString(2, u.getCpf());
+                    stmt.setString(3, u.getEmail());
+                    stmt.executeUpdate();
+                    stmt.close();
+                    return true;
+            		}
+            		else{
+            			return false;
+            		}
+        	}
+        	else { // tabela nao existe
+        		createDB();
+        		if(!checarSeExisteUsuario(u)){
+            		PreparedStatement stmt = c.prepareStatement(
+                            "INSERT INTO usuarios (nome, cpf, email) VALUES (?,?,?)"
+                            );
+                    stmt.setString(1, u.getNome());
+                    stmt.setString(2, u.getCpf());
+                    stmt.setString(3, u.getEmail());
+                    stmt.executeUpdate();
+                    stmt.close();
+                    return true;
+            		}
+            		else{
+            			return false;
+            		}
+
+        	}
         } catch (SQLException ex) {
             throw new CadastroException("Falha ao adicionar.", ex);
         }
@@ -54,7 +75,9 @@ public class CadastroDB { //implements facade
 
     public boolean cadastrarLeilao(Leilao l) throws CadastroException {
         try(Connection c = getConnection();){
-        	createDB();
+        	DatabaseMetaData dbm = c.getMetaData();
+        	ResultSet tables = dbm.getTables(null, null, "LEILOES", null);
+        	if (tables.next()) { // tabela ja existe
         		PreparedStatement stmt = c.prepareStatement(
                         "INSERT INTO leiloes (natureza, cpf, tipoLances, dataInicio, dataFim, horaInicio, horaFim, minutoInicio, minutoFim) VALUES (?,?,?,?,?,?,?,?,?)"
                         );
@@ -70,6 +93,26 @@ public class CadastroDB { //implements facade
                 stmt.executeUpdate();
                 stmt.close();
                 return true;
+        	}
+        	else{
+        		createDB();
+        		PreparedStatement stmt = c.prepareStatement(
+                        "INSERT INTO leiloes (natureza, cpf, tipoLances, dataInicio, dataFim, horaInicio, horaFim, minutoInicio, minutoFim) VALUES (?,?,?,?,?,?,?,?,?)"
+                        );
+                stmt.setString(1, l.getNatureza());
+                stmt.setString(2, l.getCpf().toString());
+                stmt.setString(3, l.getTipoLances());
+                stmt.setDate(4, l.getDataInicio());
+                stmt.setDate(5, l.getDataFim());
+                stmt.setInt(6, l.getHoraInicio());
+                stmt.setInt(7, l.getHoraFim());
+                stmt.setInt(8, l.getMinutoInicio());
+                stmt.setInt(9, l.getMinutoFim());
+                stmt.executeUpdate();
+                stmt.close();
+                return true;
+        	}
+
         } catch (SQLException ex) {
             throw new CadastroException("Falha ao adicionar.", ex);
         }

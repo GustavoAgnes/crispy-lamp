@@ -17,12 +17,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import negocio.Leilao;
 import negocio.Usuario;
@@ -79,6 +81,20 @@ public class CadastroDeLeilaoController implements Initializable {
 		}
 	@FXML
 	public void botaoSubmit(ActionEvent event) throws IOException, NumberFormatException, CadastroException {
+		if(naturezaLeilao.getSelectionModel().getSelectedItem() == null ||
+				formaLances.getSelectionModel().getSelectedItem() == null ||
+				horaInicio.getSelectionModel().getSelectedItem() == null ||
+				horaTermino.getSelectionModel().getSelectedItem() == null ||
+				minutosTermino.getSelectionModel().getSelectedItem() == null ||
+				minutosInicio.getSelectionModel().getSelectedItem() == null ||
+				listaUsers.getSelectionModel().getSelectedItem() == null ||
+				dataInicio.getValue() == null ||
+				dataFim.getValue() == null
+				)
+		{
+			alertaErro();
+		}
+		else{
 		Leilao l = new Leilao(naturezaLeilao.getSelectionModel().getSelectedItem().toString(),
 				pegarCpfs(),
 				formaLances.getSelectionModel().getSelectedItem().toString(),
@@ -90,15 +106,15 @@ public class CadastroDeLeilaoController implements Initializable {
 				Integer.parseInt(minutosTermino.getSelectionModel().getSelectedItem().toString()));
 				databaseTF.cadastrarLeilao(l);
 				System.out.println(databaseTF.getTodosLeiloes());
+	}
+	}
 
-		//System.out.println(naturezaLeilao.getSelectionModel().getSelectedItem().toString());
-	//	System.out.println(pegarCpfs());
-	//	System.out.println(formaLances.getSelectionModel().getSelectedItem().toString());
-	//	System.out.println(dataInicio.getValue());
-	//	System.out.println(dataFim.getValue());
-	//	System.out.println(horaInicio.getSelectionModel().getSelectedItem().toString());
-	//	System.out.println(horaTermino.getSelectionModel().getSelectedItem().toString());
-	//	System.out.println();
+	public void alertaErro(){
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Erro");
+		alert.setHeaderText(null);
+		alert.setContentText("Todos os campos devem estar preenchidos!");
+		alert.showAndWait();
 	}
 
 	@Override
